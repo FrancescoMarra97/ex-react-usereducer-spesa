@@ -7,7 +7,26 @@ export default function ProductList() {
         const prodottoEsistente = addedProducts.find((item) => item.name === product.name)
         if (!prodottoEsistente) {
             setAddedProducts([...addedProducts, { ...product, quantity: 1 }])
+        } else {
+            updateProductQuantity(product)
         }
+    }
+    function updateProductQuantity(product) {
+        setAddedProducts(addedProducts.map((item) =>
+            item.name === product.name
+                ? { ...item, quantity: item.quantity + 1 }
+                : item
+        ));
+    }
+
+    const removeFromCart = (product) => {
+        setAddedProducts(addedProducts.filter((item) => item.name !== product.name))
+    }
+
+    const total = () => {
+        return (addedProducts.reduce((curr, product) =>
+            curr + (product.price * product.quantity), 0)
+        )
     }
     return (
         <>
@@ -16,7 +35,11 @@ export default function ProductList() {
                 <ul >
                     {products.map((product, i) => (
 
-                        <li key={i}>{product.name} <span>{product.price} </span> <span><button onClick={() => AddToCart(product)}>Aggiungi al carrello</button></span></li>
+                        <li key={i}>
+                            {product.name} <span>{product.price} </span>
+                            <span><button onClick={() => AddToCart(product)}>Aggiungi al carrello</button></span>
+                            <span><button onClick={() => removeFromCart(product)}>Rimuovi dal carrello</button></span>
+                        </li>
 
                     )
                     )}
@@ -28,11 +51,13 @@ export default function ProductList() {
                 {addedProducts.length > 0 && (
                     <ul>
                         {addedProducts.map((product, i) => (
-                            <li key={i}>{product.name} <span>{product.price}</span> <span>{product.quantity}</span> </li>
+                            <li key={i}>Prodotto: {product.name} <span> Prezzo: {product.price} €</span> <span> Quantità: {product.quantity}</span> </li>
                         ))}
                     </ul>
+
                 )
                 }
+                <h3>Totale: {total()} €</h3>
             </div>
 
 
