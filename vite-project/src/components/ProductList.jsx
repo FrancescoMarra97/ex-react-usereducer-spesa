@@ -34,7 +34,7 @@ export default function ProductList() {
 
                         <li key={i}>
                             {product.name} <span>{product.price} </span>
-                            <span><button onClick={() => AddToCart(product)}>Aggiungi al carrello</button></span>
+                            <p><button onClick={() => AddToCart(product)}>Aggiungi al carrello</button></p>
                         </li>
 
                     )
