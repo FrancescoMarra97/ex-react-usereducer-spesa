@@ -23,11 +23,8 @@ export default function ProductList() {
         setAddedProducts(addedProducts.filter((item) => item.name !== product.name))
     }
 
-    const total = () => {
-        return (addedProducts.reduce((curr, product) =>
-            curr + (product.price * product.quantity), 0)
-        )
-    }
+    const total = addedProducts.reduce((curr, product) => curr + (product.price * product.quantity), 0)
+
     return (
         <>
             <div>
@@ -38,7 +35,6 @@ export default function ProductList() {
                         <li key={i}>
                             {product.name} <span>{product.price} </span>
                             <span><button onClick={() => AddToCart(product)}>Aggiungi al carrello</button></span>
-                            <span><button onClick={() => removeFromCart(product)}>Rimuovi dal carrello</button></span>
                         </li>
 
                     )
@@ -51,13 +47,18 @@ export default function ProductList() {
                 {addedProducts.length > 0 && (
                     <ul>
                         {addedProducts.map((product, i) => (
-                            <li key={i}>Prodotto: {product.name} <span> Prezzo: {product.price} €</span> <span> Quantità: {product.quantity}</span> </li>
+                            <li key={i}>
+                                Prodotto: {product.name}
+                                <span> Prezzo: {product.price} €</span>
+                                <span> Quantità: {product.quantity}</span>
+                                <p> <button onClick={() => removeFromCart(product)}>Rimuovi dal carrello</button></p>
+                            </li>
                         ))}
                     </ul>
 
                 )
                 }
-                <h3>Totale: {total()} €</h3>
+                <h3>Totale: {total.toFixed(2)} €</h3>
             </div>
 
 
