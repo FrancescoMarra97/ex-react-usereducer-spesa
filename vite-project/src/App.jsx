@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <div>
-        <h1>Prodotti</h1>
+
         <ProductList></ProductList>
       </div>
     </>
